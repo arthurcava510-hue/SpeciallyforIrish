@@ -58,7 +58,7 @@ body {
 .loader-heart:after{left:40px;}
 @keyframes slideIn{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 @keyframes scaleIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
-@keyframes glowIn{from{filter:brightness(0.6);}to{filter:brightness(1.2);}}
+@keyframes glowIn{from{filter:brightness(0.6);}to{filter:brightness(1.2);} }
 .slide{animation:slideIn 0.8s ease;}
 .scale{animation:scaleIn 0.8s ease;}
 .glow{animation:glowIn 1s ease;}
@@ -134,6 +134,19 @@ audio{width:100%; max-width:400px; margin-bottom:20px;}
   transform: rotateY(5deg) rotateX(3deg) translateZ(5px);
   box-shadow: 0 5px 20px rgba(255,192,203,0.4);
 }
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+  body { padding-top: 180px; }
+  nav {
+    flex-direction: column;
+    padding: 10px 15px;
+    gap: 10px;
+  }
+  nav button { width: 90%; }
+  .container { margin: 100px 10px 20px 10px; }
+  #signature { bottom: 20px; font-size: 16px; padding: 6px 12px; }
+}
 </style>
 </head>
 <body>
@@ -165,20 +178,15 @@ audio{width:100%; max-width:400px; margin-bottom:20px;}
 
 <div id="letter" class="container" style="display:none;">
 <h2>💌 A Letter for You</h2>
-<p>Ako ’to, oh yung ka‑duo mo sa Valorant, ka‑duo mo sa COD, ka‑duo mo sa lahat!
-
-I just want to tell you na no matter what happens, I will never forget your name. I will never pick the option to forget you kahit sa laro pa ’yan or sa totoong buhay.
-
-i want to be with u together!. But for now, kailangan muna natin mag‑focus sa studies natin, hehe.
-
-Good luck sa school! Galingan mo pa lalo, ha? And maintain your grades, my Irish.
-
+<p>Ako ’to, oh yung ka‑duo mo sa Valorant, ka‑duo mo sa COD, ka‑duo mo sa lahat!<br><br>
+I just want to tell you na no matter what happens, I will never forget your name. I will never pick the option to forget you kahit sa laro pa ’yan or sa totoong buhay.<br><br>
+I want to be with u forever! But for now, kailangan muna natin mag‑focus sa studies natin, hehe.<br><br>
+Good luck sa school! Galingan mo pa lalo, ha? And maintain your grades, my Irish.<br><br>
 Miss u sooo much!!! 🫶💜 💖</p>
 </div>
 
 <div id="music" class="container" style="display:none;">
 <h2>🎵 Songs that remind me of you</h2>
-
 <div class="song-item" onclick="playSong(this)">
   <img src="promise.jpg" alt="Song 1 Cover">
   <p>Promise By: Rishyy</p>
@@ -186,7 +194,6 @@ Miss u sooo much!!! 🫶💜 💖</p>
     <source src="promise.mp3" type="audio/mpeg">
   </audio>
 </div>
-
 <div class="song-item" onclick="playSong(this)">
   <img src="tibok.jpg" alt="Song 2 Cover">
   <p>Tibok By: Rish</p>
@@ -194,7 +201,6 @@ Miss u sooo much!!! 🫶💜 💖</p>
     <source src="Ditosakin.mp3" type="audio/mpeg">
   </audio>
 </div>
-
 <div class="song-item" onclick="playSong(this)">
   <img src="Those.jpg" alt="Song 3 Cover">
   <p>Those Eyes By: Meow</p>
@@ -242,7 +248,7 @@ for(let i=0;i<20;i++){
 const clickSound=new Audio('click.mp3');
 
 function checkPassword(){
-  const correctPass='love123';
+  const correctPass='12102007';
   let input=document.getElementById('password-input').value;
   let error=document.getElementById('error-msg');
   if(input===correctPass){document.getElementById('password-screen').style.display='none';}
@@ -269,7 +275,6 @@ function playSong(item){
     const audio = si.querySelector('audio');
     if(si !== item){ audio.pause(); si.classList.remove('playing'); }
   });
-
   const audio = item.querySelector('audio');
   if(audio.paused){ audio.play(); item.classList.add('playing'); }
   else{ audio.pause(); item.classList.remove('playing'); }
@@ -279,4 +284,3 @@ document.addEventListener('DOMContentLoaded',()=>{document.body.classList.add('f
 </script>
 </body>
 </html>
-
