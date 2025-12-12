@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Gift 3D</title>
+<style>
+body {
+    margin:0;
+    padding-top: 120px;
+    font-family:'Poppins', sans-serif;
+    background: linear-gradient(135deg,#a26cff,#d18fff);
+    color:#fff;
+    text-align:center;
+    overflow-x:hidden;
+    perspective: 1500px;
+}
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(128,0,128,0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+.container:hover {
+    transform: rotateY(15deg) rotateX(10deg) translateZ(20px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.heart {
+    width:120px;
+    height:120px;
+    background:#ff1493;
+    position:relative;
+    margin:40px auto;
+    transform:rotate(-45deg);
+    animation:heartbeat 1s infinite ease-in-out;
+}
+.heart:before,.heart:after{
+    content:"";
+    width:120px;
+    height:120px;
+    background:#ff1493;
+    border-radius:50%;
+    position:absolute;
+}
+.heart:before{top:-60px; left:0;}
+.heart:after{left:60px; top:0;}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1) rotate(-45deg); }
+  14% { transform: scale(1.4) rotate(-45deg); }
+  28% { transform: scale(1.2) rotate(-45deg); }
+  42% { transform: scale(1.4) rotate(-45deg); }
+  70% { transform: scale(1.1) rotate(-45deg); }
+}
+.fade-section{animation:fadeIn 1s ease;}
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);backdrop-filter:blur(5px);display:none;justify-content:center;align-items:center;z-index:3000;}
+.loader-heart{width:80px;height:80px;background:#ff1493;transform:rotate(-45deg);position:relative;animation:heartbeat 0.8s infinite;}
+.loader-heart:before,.loader-heart:after{content:"";width:80px;height:80px;background:#ff1493;border-radius:50%;position:absolute;}
+.loader-heart:before{top:-40px;}
+.loader-heart:after{left:40px;}
+@keyframes slideIn{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes scaleIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+@keyframes glowIn{from{filter:brightness(0.6);}to{filter:brightness(1.2);}}
+.slide{animation:slideIn 0.8s ease;}
+.scale{animation:scaleIn 0.8s ease;}
+.glow{animation:glowIn 1s ease;}
+.petal{position:fixed;top:-10px;left:calc(10% + 80% * var(--pos));font-size:25px;opacity:0.8;animation:fall 6s linear infinite; transform-style: preserve-3d;}
+@keyframes fall{0%{transform:translateY(0) rotateY(0deg) rotate(0deg);}100%{transform:translateY(120vh) rotateY(360deg) rotate(360deg);}}
+nav{position: fixed; top: 20px; left: 50%; transform: translateX(-50%); display:flex; gap:20px; padding:15px 25px; background:rgba(128,0,128,0.2); backdrop-filter:blur(10px); border-radius:30px; z-index:1000; box-shadow:0 4px 10px rgba(0,0,0,0.15); flex-wrap:wrap; justify-content:center;}
+nav button{margin:5px;padding:10px 18px;border:none;border-radius:25px;background:#a64cff;color:white;font-size:16px;cursor:pointer;}
+audio{width:100%; max-width:400px; margin-bottom:20px;}
+.song-item{display:flex; flex-direction:column; align-items:center; margin-bottom:30px; background: rgba(255,255,255,0.1); border-radius: 15px; padding: 15px; transform-style: preserve-3d; transition: transform 0.5s ease, box-shadow 0.5s ease;}
+.song-item:hover{transform: rotateY(10deg) rotateX(5deg) translateZ(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.4);}
+.song-item img{width:150px; border-radius:15px; margin-bottom:10px;}
+.gallery-img{width:200px; height:150px; object-fit:cover; margin:10px; border-radius:15px; transition: transform 0.5s ease;}
+.gallery-img:hover{transform: scale(1.1) rotateY(10deg) rotateX(5deg);}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-heart"></div></div>
+<div id="password-screen" style="position: fixed; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, #a26cff,#d18fff); display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:2000; text-align:center;">
+<h1 style="font-size:2.5rem; color:white;">Enter Password 💞</h1>
+<input id="password-input" type="password" placeholder="Password" style="padding:12px 18px; border:none; border-radius:25px; font-size:18px; margin-top:20px; outline:none;">
+<button onclick="checkPassword()" style="padding:12px 25px; border:none; border-radius:25px; background:white; color:#a64cff; font-size:18px; cursor:pointer; margin-top:20px;">Unlock 💗</button>
+<p id="error-msg" style="color:white; margin-top:15px; display:none;">Wrong password 😢</p>
+</div>
+<nav>
+<button onclick="openSection('letter')">Letter 💌</button>
+<button onclick="openSection('music')">Music 🎵</button>
+<button onclick="openSection('notes')">Notes 📝</button>
+<button onclick="openSection('gallery')">Gallery 📸</button>
+</nav>
+<div id="main-container" class="container">
+<h1 id="main-title">all for you, Irish Palac 💜</h1>
+<div id="main-heart" class="heart"></div>
+<div id="main-box" class="message-box">
+<h2>For Someone Special 💗</h2>
+<p>You deserve something cute, sweet, and full of love. Here's a little animated gift just for you 💕</p>
+</div>
+</div>
+<div id="letter" class="container" style="display:none;"><h2>💌 A Letter for You</h2><p>All text is in a container to look neat and centered 💖</p></div>
+<div id="music" class="container" style="display:none;">
+<h2>🎵 Songs that reminds me of you</h2>
+<div class="song-item">
+<img src="cover1.jpg" alt="Song 1 Cover">
+<p>Song Title 1</p>
+<audio controls><source src="song1.mp3" type="audio/mpeg"></audio>
+</div>
+<div class="song-item">
+<img src="cover2.jpg" alt="Song 2 Cover">
+<p>Song Title 2</p>
+<audio controls><source src="song2.mp3" type="audio/mpeg"></audio>
+</div>
+<div class="song-item">
+<img src="cover3.jpg" alt="Song 3 Cover">
+<p>Song Title 3</p>
+<audio controls><source src="song3.mp3" type="audio/mpeg"></audio>
+</div>
+</div>
+<div id="notes" class="container" style="display:none;"><h2>📝 Notes</h2><p>All notes are in container 💗</p></div>
+<div id="gallery" class="container" style="display:none;">
+<h2>📸 Gallery</h2>
+<div style="display:flex; flex-wrap:wrap; justify-content:center;">
+<img class="gallery-img" src="gallery1.jpg" alt="Gallery 1">
+<img class="gallery-img" src="gallery2.jpg" alt="Gallery 2">
+<img class="gallery-img" src="gallery3.jpg" alt="Gallery 3">
+<img class="gallery-img" src="gallery4.jpg" alt="Gallery 4">
+<img class="gallery-img" src="gallery5.jpg" alt="Gallery 5">
+<img class="gallery-img" src="gallery6.jpg" alt="Gallery 6">
+</div>
+</div>
+<script>
+for(let i=0;i<20;i++){
+  let p=document.createElement('div');
+  p.className='petal';
+  p.style.setProperty('--pos',Math.random());
+  p.textContent='🌸';
+  p.style.animationDelay=(Math.random()*5)+'s';
+  document.body.appendChild(p);
+}
+const clickSound=new Audio('click.mp3');
+function checkPassword(){
+  const correctPass='love123';
+  let input=document.getElementById('password-input').value;
+  let error=document.getElementById('error-msg');
+  if(input===correctPass){document.getElementById('password-screen').style.display='none';}
+  else{error.style.display='block';}
+}
+function openSection(id){
+  clickSound.currentTime=0; clickSound.play();
+  document.getElementById('loader').style.display='flex';
+  setTimeout(()=>{
+    ['letter','music','notes','gallery'].forEach(sec=>document.getElementById(sec).style.display='none');
+    document.getElementById('main-container').style.display='none';
+    let sec=document.getElementById(id);
+    sec.style.display='block';
+    sec.classList.add(['slide','scale','glow'][Math.floor(Math.random()*3)]);
+    document.getElementById('loader').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  },900);
+}
+document.addEventListener('DOMContentLoaded',()=>{document.body.classList.add('fade-section');});
+</script>
+</body>
+</html>
