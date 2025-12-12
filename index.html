@@ -101,30 +101,6 @@ audio{width:100%; max-width:400px; margin-bottom:20px;}
 .song-item img{width:150px; border-radius:15px; margin-bottom:10px;}
 .gallery-img{width:200px; height:150px; object-fit:cover; margin:10px; border-radius:15px; transition: transform 0.5s ease;}
 .gallery-img:hover{transform: scale(1.1) rotateY(10deg) rotateX(5deg);}
-
-/* Sticky Signature Heartbeat */
-#signature {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 18px;
-  color: #ffb6c1;
-  text-shadow: 0 0 10px #ff69b4;
-  background: rgba(0,0,0,0.1);
-  padding: 8px 15px;
-  border-radius: 20px;
-  z-index: 2000;
-  animation: heartbeatSignature 2s infinite;
-}
-@keyframes heartbeatSignature {
-  0%,100% { transform: translateX(-50%) scale(1); }
-  25% { transform: translateX(-50%) scale(1.1); }
-  50% { transform: translateX(-50%) scale(1); }
-  75% { transform: translateX(-50%) scale(1.1); }
-}
-
-/* Notes styling */
 .note-item{
   background: rgba(255,255,255,0.1); 
   padding:15px; border-radius:15px; margin:10px; width:80%; text-align:center;
@@ -134,18 +110,32 @@ audio{width:100%; max-width:400px; margin-bottom:20px;}
   transform: rotateY(5deg) rotateX(3deg) translateZ(5px);
   box-shadow: 0 5px 20px rgba(255,192,203,0.4);
 }
-
+/* Signature at bottom without blocking */
+#signature {
+  position: relative;
+  margin-top: 40px;
+  font-size: 18px;
+  color: #ffb6c1;
+  text-shadow: 0 0 10px #ff69b4;
+  background: rgba(0,0,0,0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  animation: heartbeatSignature 2s infinite;
+  display: inline-block;
+}
+@keyframes heartbeatSignature {
+  0%,100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+}
 /* MOBILE RESPONSIVE */
 @media (max-width: 600px) {
   body { padding-top: 180px; }
-  nav {
-    flex-direction: column;
-    padding: 10px 15px;
-    gap: 10px;
-  }
+  nav { flex-direction: column; padding: 10px 15px; gap: 10px; }
   nav button { width: 90%; }
   .container { margin: 100px 10px 20px 10px; }
-  #signature { bottom: 20px; font-size: 16px; padding: 6px 12px; }
+  #signature { font-size: 16px; padding: 6px 12px; margin-top: 30px; }
 }
 </style>
 </head>
@@ -231,6 +221,7 @@ Miss u sooo much!!! 🫶💜 💖</p>
 </div>
 </div>
 
+<!-- Signature at the bottom -->
 <div id="signature">
   Sent with love by <strong>Arthur Rey Cava</strong> 💖
 </div>
@@ -284,4 +275,3 @@ document.addEventListener('DOMContentLoaded',()=>{document.body.classList.add('f
 </script>
 </body>
 </html>
-
